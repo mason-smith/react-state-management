@@ -6,7 +6,7 @@ import {
 import { TodoState } from './todoTypes';
 
 const initialState: TodoState = {
-  todos: [],
+  todoList: [],
 };
 
 function todoReducer(state = initialState, action: any) {
@@ -14,18 +14,15 @@ function todoReducer(state = initialState, action: any) {
     case ADD_TODO:
       return {
         ...state,
-        todos: [
-          ...state.todos,
-          {
-            text: action.text,
-            completed: false,
-          },
+        todoList: [
+          ...state.todoList,
+          { id: action.id, text: action.text, completed: false },
         ],
       };
     case TOGGLE_TODO:
       return {
         ...state,
-        todos: state.todos.map((todo, index) => {
+        todoList: state.todoList.map((todo, index) => {
           if (index === action.index) {
             return Object.assign({}, todo, {
               completed: !todo.completed,

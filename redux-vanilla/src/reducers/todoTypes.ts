@@ -1,5 +1,5 @@
 export interface TodoState {
-  todos: {
+  todoList: {
     text: string;
     completed: boolean;
   }[];
