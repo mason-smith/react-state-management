@@ -1,0 +1,27 @@
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
+jobs:
+  build-test-deploy:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run:
+                name: 'Install Packages'
+                command: npm install
+            - run:
+                name: 'Run Unit Tests'
+                command: npm test
+            - run:
+                name: 'Build Project'
+                command: npm run build
+            - run:
+                name: 'Deploy to Firebase Hosting'
+                command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
+workflows:
+  build-test-deploy:
+    jobs:
+      - build-test-deploy
